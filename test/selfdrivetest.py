@@ -3,7 +3,7 @@ import numpy as np
 from tensorflow.keras.models import load_model
 
 # 모델 로드
-model_path = "/Users/kimhojin/Documents/GitHub/gonghack-illban-experiment/keras_model.h5"
+model_path = "/Users/kimhojin/Documents/GitHub/gonghack-illban-experiment/models/keras_model.h5"
 try:
     model = load_model(model_path, compile=False)
     print(f"Model loaded successfully from {model_path}")
@@ -24,12 +24,10 @@ except FileNotFoundError:
 # 웹캠 초기화 (기본 카메라 사용)
 camera = cv2.VideoCapture(0)  # 기본 카메라를 사용하려면 0을 입력
 if not camera.isOpened():
-    print("Failed to access the webcam. Make sure it is connected.")
+    print("Failed to access the webcam.")
     camera.release()
     cv2.destroyAllWindows()
     exit(1)
-
-print("Press 'ESC' to exit the program.")
 
 try:
     while True:
@@ -70,10 +68,10 @@ try:
         # 행동 결정
         if "전진" in class_name.lower():
             print("Moving Forward!")
-        elif "우회전" in class_name.lower():
-            print("Turning Right!")
         elif "좌회전" in class_name.lower():
             print("Turning Left!")
+        elif "우회전" in class_name.lower():
+            print("Turning Right!")
         else:
             print("Unknown action.")
 
